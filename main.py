@@ -1,4 +1,5 @@
 import stats
+import sys
 
 
 def print_section_name(name, fill_char="-", width=33):
@@ -7,11 +8,16 @@ def print_section_name(name, fill_char="-", width=33):
 
 
 def main():
-    print_section_name("BOOKBOT", "=")
-    print("Analyzing book found at books/frankenstein.txt...")
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
 
-    filename = "./books/frankenstein.txt"
-    text = stats.read_book(filename)
+    filepath = sys.argv[1]
+
+    print_section_name("BOOKBOT", "=")
+    print(f"Analyzing book found at {filepath}...")
+
+    text = stats.read_book(filepath)
 
     print_section_name("Word Count")
     print(f"Found {stats.count_words(text)} total words")
